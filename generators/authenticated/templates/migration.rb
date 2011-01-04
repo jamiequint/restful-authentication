@@ -1,7 +1,6 @@
 class <%= migration_name %> < ActiveRecord::Migration
   def self.up
     create_table "<%= table_name %>", :force => true do |t|
-      t.string   :login,                     :limit => 40
       t.string   :name,                      :limit => 100, :default => '', :null => true
       t.string   :email,                     :limit => 100
       t.string   :crypted_password,          :limit => 40
@@ -17,7 +16,7 @@ class <%= migration_name %> < ActiveRecord::Migration
       t.string   :state,                     :null => :no, :default => 'passive'
       t.datetime :deleted_at<% end %>
     end
-    add_index :<%= table_name %>, :login, :unique => true
+    add_index :<%= table_name %>, :email, :unique => true
   end
 
   def self.down

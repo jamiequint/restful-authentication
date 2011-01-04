@@ -29,10 +29,10 @@ describe <%= model_controller_class_name %>Controller do
     assigns(:<%= file_name %>).activation_code.should_not be_nil
   end<% end -%>
 
-  it 'requires login on signup' do
+  it 'requires email on signup' do
     lambda do
-      create_<%= file_name %>(:login => nil)
-      assigns[:<%= file_name %>].errors.on(:login).should_not be_nil
+      create_<%= file_name %>(:email => nil)
+      assigns[:<%= file_name %>].errors.on(:email).should_not be_nil
       response.should be_success
     end.should_not change(<%= class_name %>, :count)
   end
@@ -63,12 +63,12 @@ describe <%= model_controller_class_name %>Controller do
   
   <% if options[:include_activation] %>
   it 'activates user' do
-    <%= class_name %>.authenticate('aaron', 'monkey').should be_nil
+    <%= class_name %>.authenticate('aaron@example.com', 'monkey').should be_nil
     get :activate, :activation_code => <%= table_name %>(:aaron).activation_code
     response.should redirect_to('/login')
     flash[:notice].should_not be_nil
     flash[:error ].should     be_nil
-    <%= class_name %>.authenticate('aaron', 'monkey').should == <%= table_name %>(:aaron)
+    <%= class_name %>.authenticate('aaron@example.com', 'monkey').should == <%= table_name %>(:aaron)
   end
   
   it 'does not activate user without key' do
@@ -90,7 +90,7 @@ describe <%= model_controller_class_name %>Controller do
   end<% end %>
   
   def create_<%= file_name %>(options = {})
-    post :create, :<%= file_name %> => { :login => 'quire', :email => 'quire@example.com',
+    post :create, :<%= file_name %> => { :email => 'quire@example.com',
       :password => 'quire69', :password_confirmation => 'quire69' }.merge(options)
   end
 end

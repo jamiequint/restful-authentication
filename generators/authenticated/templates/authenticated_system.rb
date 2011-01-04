@@ -28,7 +28,7 @@ module AuthenticatedSystem
     #
     #  # only allow nonbobs
     #  def authorized?
-    #    current_<%= file_name %>.login != "bob"
+    #    current_<%= file_name %>.email != "bob@example.com"
     #  end
     #
     def authorized?(action = action_name, resource = nil)
@@ -110,8 +110,8 @@ module AuthenticatedSystem
 
     # Called from #current_<%= file_name %>.  Now, attempt to login by basic authentication information.
     def login_from_basic_auth
-      authenticate_with_http_basic do |login, password|
-        self.current_<%= file_name %> = <%= class_name %>.authenticate(login, password)
+      authenticate_with_http_basic do |email, password|
+        self.current_<%= file_name %> = <%= class_name %>.authenticate(email, password)
       end
     end
 

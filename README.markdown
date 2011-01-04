@@ -1,3 +1,7 @@
+# This fork eliminates the requirement for usernames
+
+Use <code>git clone git://github.com/technoweenie/restful-authentication.git restful_authentication</code> to clone to vendor/plugins
+
 # "Restful Authentication Generator":http://github.com/technoweenie/restful-authentication
 
 This widely-used plugin provides a foundation for securely managing user
